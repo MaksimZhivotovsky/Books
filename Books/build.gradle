@@ -4,9 +4,13 @@ plugins {
 	id 'java'
 }
 
-group = 'com'
+group = 
 version = 'app'
 sourceCompatibility = '11'
+
+ext {
+ set('springBootAdminVersion', "2.3.1")
+}
 
 configurations {
 	compileOnly {
@@ -24,13 +28,19 @@ dependencies {
 	implementation 'org.flywaydb:flyway-core'
 	
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
-	implementation group: 'org.springdoc:springdoc-openapi-ui:1.6.6'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
 	
-	
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "de.codecentric:spring-boot-admin-dependencies:${springBootAdminVersion}"
+	}
 }
 
 tasks.named('test') {
